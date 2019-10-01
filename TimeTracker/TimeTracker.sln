@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker", "TimeTracker\TimeTracker.csproj", "{DB6509BC-D93B-4DD5-B9CB-83BE8F365B1A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracker.Model", "TimeTracker.Model\TimeTracker.Model.csproj", "{541E00A4-565C-4B7B-944C-213D73086190}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C68C88DA-C420-4A6E-A625-A07F3C55C628}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTraker.Tests", "TimeTraker.Tests\TimeTraker.Tests.csproj", "{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB6509BC-D93B-4DD5-B9CB-83BE8F365B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6509BC-D93B-4DD5-B9CB-83BE8F365B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6509BC-D93B-4DD5-B9CB-83BE8F365B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6509BC-D93B-4DD5-B9CB-83BE8F365B1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{541E00A4-565C-4B7B-944C-213D73086190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{541E00A4-565C-4B7B-944C-213D73086190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{541E00A4-565C-4B7B-944C-213D73086190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{541E00A4-565C-4B7B-944C-213D73086190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2F9A823-46E3-4649-A1B4-1D3D8336BD3C}
+	EndGlobalSection
+EndGlobal
