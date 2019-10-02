@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TimeTracker.Model;
@@ -24,7 +24,7 @@ namespace TimeTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
             services.AddDbContext<TimeTrackingContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDB"));
@@ -53,7 +53,7 @@ namespace TimeTracker
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -70,11 +70,11 @@ namespace TimeTracker
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                routes.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
