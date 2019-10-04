@@ -7,8 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 using TimeTracker.Model;
+using TimeTracker.Services;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace TimeTracker
 {
@@ -24,12 +27,6 @@ namespace TimeTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddDbContext<TimeTrackingContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("LocalDB"));
-            });
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -38,6 +35,9 @@ namespace TimeTracker
                     {
                         ValidateIssuer = false,
                         ValidateAudience = false,
+                        ValidateActor = false,
+                        ValidateTokenReplay = false,
+
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
 
@@ -45,11 +45,31 @@ namespace TimeTracker
                     };
                 });
 
+            services.AddControllers();
+            services.AddDbContext<TimeTrackingContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("LocalDB"));
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tracking API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+            });
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,16 +87,26 @@ namespace TimeTracker
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(routes =>
             {
                 routes.MapControllerRoute(
                         name: "default",
-                        pattern: "{controller}/{action=Index}/{id?}");
+                        pattern: "{controller}/{action=Index}/{id?}").RequireAuthorization();
             });
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TrackingV1");
+                c.RoutePrefix = string.Empty;
+            });
+
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,

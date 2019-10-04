@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using TimeTracker.DTOs;
 using TimeTracker.Model;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TimeTracker.Controllers
 {
@@ -27,8 +26,8 @@ namespace TimeTracker.Controllers
         [HttpGet]
         public IEnumerable<TrackingDto> Get([FromQuery]DateTime? periodStart, [FromQuery]DateTime? periodEnd)
         {
-            periodStart = periodStart ?? DateTime.MinValue;
-            periodEnd = periodEnd ?? DateTime.MaxValue;
+            periodStart ??= DateTime.MinValue;
+            periodEnd ??= DateTime.MaxValue;
 
             var username = User.FindFirstValue(ClaimTypes.Name);
             var trackings = from tracking in _context.Tracking

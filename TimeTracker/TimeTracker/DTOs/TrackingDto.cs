@@ -5,7 +5,7 @@ namespace TimeTracker.DTOs
 {
     public class TrackingDto
     {
-        public int TrackingId { get; set; }
+        public int? TrackingId { get; set; }
         public string ProjectName { get; set; }
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
