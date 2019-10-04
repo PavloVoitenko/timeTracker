@@ -87,6 +87,16 @@ namespace TimeTracker.Model.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Project_Name",
+                table: "Project",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Task_Name",
+                table: "Task",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Task_ProjectId",
                 table: "Task",
                 column: "ProjectId");

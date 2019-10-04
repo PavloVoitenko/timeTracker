@@ -24,21 +24,26 @@ namespace TimeTracker.Model
             modelBuilder.Entity<Project>().HasMany(p => p.Tasks).WithOne(t => t.Project);
             modelBuilder.Entity<User>().HasMany(u => u.Trackings).WithOne(t => t.User);
 
+            AddNamedEntityIndexes(modelBuilder);
         }
 
-        private void AddNamedEntityIndexes()
+        private void AddNamedEntityIndexes(ModelBuilder modelBuilder)
         {
-            var genericMethod = GetType().GetMethod("AddNamedEntityKey");
-            var namedEntities = GetType().Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(NamedEntity)));
-
-            foreach (var ne in namedEntities)
+            var genericMethod = typeof(TimeTrackingContext).GetMethod("AddNamedEntityKey", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var namedProperties = typeof(TimeTrackingContext).GetProperties()
+                                .Where(pi =>
+                                        pi.PropertyType.IsGenericType &&
+                                        pi.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>) &&
+                                        pi.PropertyType.GetGenericArguments().First().IsSubclassOf(typeof(NamedEntity)));
+            foreach (var np in namedProperties)
             {
-                var entityMethod = genericMethod.MakeGenericMethod(ne);
-                entityMethod.Invoke(null, null);
+                var genericType = np.PropertyType.GetGenericArguments().FirstOrDefault();
+                var entityMethod = genericMethod.MakeGenericMethod(genericType);
+                entityMethod.Invoke(this, new[] { modelBuilder });
             }
         }
 
-        private void AddNamedEntityKey<T>(ModelBuilder modelBuilder, DbSet<T> set) where T : NamedEntity
+        private void AddNamedEntityKey<T>(ModelBuilder modelBuilder) where T : NamedEntity
         {
             modelBuilder.Entity<T>().HasIndex(e => e.Name);
         }
