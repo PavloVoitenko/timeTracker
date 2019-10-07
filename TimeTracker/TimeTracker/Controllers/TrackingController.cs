@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TimeTracker.DTOs;
+using TimeTracker.Exceptions;
 using TimeTracker.Model;
 
 
@@ -102,12 +103,12 @@ namespace TimeTracker.Controllers
             var tracking = _context.Tracking.Include(t => t.User).FirstOrDefault(t => t.Id == id);
             if (tracking == null)
             {
-                throw new Exception("Tracking does not exist");
+                throw new FunctionalException("Tracking does not exist");
             }
 
             if (tracking.User.Username != User.FindFirst(ClaimTypes.Name).Value)
             {
-                throw new Exception("Tracking belongs to another user");
+                throw new FunctionalException("Tracking belongs to another user");
             }
 
             _context.Remove(tracking);

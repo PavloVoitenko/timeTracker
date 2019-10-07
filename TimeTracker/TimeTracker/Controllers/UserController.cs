@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimeTracker.DTOs;
+using TimeTracker.Exceptions;
 using TimeTracker.Model;
 using TimeTracker.Model.Entities;
 using TimeTracker.Services;
@@ -34,18 +35,18 @@ namespace TimeTracker.Controllers
 
             if (user != null)
             {
-                throw new System.Exception("User already exists");
+                throw new FunctionalException("User already exists");
             }
 
             user = new User
             {
                 Username = userDto.Username
             };
+
             (user.PasswordHash, user.PasswordSalt) = PasswordHasher.Hash(userDto.Password);
 
             await _context.AddAsync(user);
             await _context.SaveChangesAsync();
-
 
             return new TokenDto
             {
@@ -59,9 +60,9 @@ namespace TimeTracker.Controllers
         {
             var token = _service.Authenticate(userDto);
 
-            if (token == string.Empty)
+            if (string.IsNullOrEmpty(token))
             {
-                throw new System.Exception("Could not authenticate. Check parameters");
+                throw new FunctionalException("Could not authenticate. Check parameters");
             }
 
             return new TokenDto

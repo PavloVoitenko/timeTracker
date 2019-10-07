@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using TimeTracker.DTOs;
+using TimeTracker.Exceptions;
 using TimeTracker.Model;
 using TimeTracker.Services.Util;
 
@@ -35,7 +36,7 @@ namespace TimeTracker.Services
 
             if (user == null)
             {
-                throw new Exception("User does not exist");
+                throw new FunctionalException("User does not exist");
             }
 
             var (PasswordHash, Salt) = PasswordHasher.Hash(userDto.Password, user.PasswordSalt);
