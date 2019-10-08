@@ -56,7 +56,7 @@ namespace TimeTracker.Controllers
 
         [HttpPost("[action]", Name = "auth")]
         [AllowAnonymous]
-        public TokenDto Authorize([FromBody]UserDto userDto)
+        public TokenDto Auth([FromBody]UserDto userDto)
         {
             var token = _service.Authenticate(userDto);
 

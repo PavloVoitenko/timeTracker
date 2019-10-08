@@ -86,7 +86,7 @@ namespace TimeTracker
             }
             app.UseMiddleware<ErrorHandler>();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -98,15 +98,20 @@ namespace TimeTracker
                         pattern: "{controller}/{action=Index}/{id?}").RequireAuthorization();
             });
 
+            app.UseStaticFiles();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "TrackingV1");
-                c.RoutePrefix = string.Empty;
+                //c.RoutePrefix = string.Empty;
             });
 
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -115,6 +120,10 @@ namespace TimeTracker
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                }
+                else
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }

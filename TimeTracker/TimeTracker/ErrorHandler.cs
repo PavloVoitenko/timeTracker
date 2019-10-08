@@ -27,11 +27,10 @@ namespace TimeTracker
                 var errorDto = new DTOs.ErrorDto
                 {
                     Message = e.Message,
-                    StatusCode = context.Response.StatusCode
+                    StatusCode = StatusCodes.Status500InternalServerError
                 };
                 var responseBytes = JsonConvert.SerializeObject(errorDto, Formatting.Indented).Select(c => Convert.ToByte(c)).ToArray();
 
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 await context.Response.BodyWriter.WriteAsync(responseBytes.AsMemory());
             }
         }

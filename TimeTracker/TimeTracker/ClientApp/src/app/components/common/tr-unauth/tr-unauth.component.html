@@ -1,0 +1,14 @@
+<mat-card class="container">
+    <mat-card-title>
+        <span>Ooops!</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+        <span>It seems that you are not authorized.</span>
+    </mat-card-subtitle>
+    <mat-card-content>
+        <span>Please</span>
+        <tr-auth [isSignIn]="false"></tr-auth>
+        <span> or </span>
+        <tr-auth [isSignIn]="true"></tr-auth>
+    </mat-card-content>
+</mat-card>
