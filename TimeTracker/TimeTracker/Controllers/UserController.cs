@@ -62,7 +62,7 @@ namespace TimeTracker.Controllers
 
             if (string.IsNullOrEmpty(token))
             {
-                throw new FunctionalException("Could not authenticate. Check parameters");
+                throw new FunctionalException("Username or password is incorrect");
             }
 
             return new TokenDto

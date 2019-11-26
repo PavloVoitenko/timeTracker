@@ -40,6 +40,15 @@
     <ProjectReference Include="..\TimeTracker.Model\TimeTracker.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ErrorDto.ts">
+      <CustomToolNamespace>DTOs\ErrorDto.cs</CustomToolNamespace>
+    </None>
+    <None Update="TrackingDto.ts">
+      <CustomToolNamespace>DTOs\TrackingDto.cs</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

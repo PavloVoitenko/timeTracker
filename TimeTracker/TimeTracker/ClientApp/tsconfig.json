@@ -9,6 +9,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "strictNullChecks": true,
+    "module": "esnext",
     "typeRoots": [
       "node_modules/@types"
     ],

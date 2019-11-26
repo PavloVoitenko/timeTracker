@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { DataBaseService } from '../data-base-service.service';
-import { User } from 'src/app/models/user';
-import { Token } from 'src/app/models/token';
 import { Observable } from 'rxjs/internal/Observable';
 
+import { Token } from '../../../models/token';
+import { User } from '../../../models/user';
+import { DataBaseService } from '../data-base-service.service';
+
+/**
+ * Service for providing user information
+ */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService extends DataBaseService {
 
@@ -19,6 +23,7 @@ export class UserService extends DataBaseService {
 
   public auth(user: User): Observable<Token> {
     const authPostfix = 'auth/';
+
     return this.http.post<Token>(this.getAddress() + authPostfix, user, { headers: this.appJson });
   }
 }

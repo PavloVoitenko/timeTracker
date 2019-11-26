@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { SigningService } from '../signing.service';
-import { RoutePath } from 'src/app/app.module';
 
+import { Navigator } from '../../shared/util/routing/navigator';
+import { SigningService } from '../signing.service';
+
+/**
+ * Authorization guard
+ */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
 
-  isSignedIn: boolean;
+  public isSignedIn: boolean;
 
-  constructor(private signingService: SigningService, private router: Router) {
+  public constructor(private readonly signingService: SigningService, private readonly navigator: Navigator) {
     signingService.subscribe((next: boolean) => this.isSignedIn = next);
    }
 
-  public canActivate(): boolean {
-
+  public async canActivate(): Promise<boolean> {
     if (!this.isSignedIn) {
-      this.router.navigate([RoutePath.UnAuth]);
+      await this.navigator.navigate(b => b
+        .to(r => r.Landing)
+        .toPath(l => l.Unauthorized));
     }
 
     return this.isSignedIn;
