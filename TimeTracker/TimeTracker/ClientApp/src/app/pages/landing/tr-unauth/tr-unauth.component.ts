@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SigningService } from '../../../services/signing.service';
 import { Navigator } from '../../../shared/util/routing/navigator';
+import { Observable } from 'rxjs';
 
 /**
  * Unauthorized screen component
@@ -18,9 +19,9 @@ export class UnauthComponent implements OnInit {
 
   public constructor(private readonly signingService: SigningService, private readonly navigator: Navigator) { }
 
-  public async ngOnInit(): Promise<void> {
+  public ngOnInit(): void {
     if (this.signingService.isSignedIn()) {
-      await this.navigator.navigate(b => b
+      this.navigator.navigate(b => b
         .to(p => p.Landing)
         .toDefault());
     }

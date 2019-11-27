@@ -23,25 +23,25 @@ export class SigningService {
   public constructor(private readonly service: UserService, private readonly navigator: Navigator) {}
 
   public signIn(user: User): void {
-    this.service.auth(user).subscribe(async (token: Token) => {
+    this.service.auth(user).subscribe((token: Token) => {
       this.setKey(token);
       this.signingSubject.next(this.isSignedIn());
-      await this.emitNavigate();
+      this.emitNavigate();
     });
   }
 
   public signUp(user: User): void {
-    this.service.create(user).subscribe(async (token: Token) => {
+    this.service.create(user).subscribe((token: Token) => {
       this.setKey(token);
       this.signingSubject.next(this.isSignedIn());
-      await this.emitNavigate();
+      this.emitNavigate();
     });
   }
 
-  public async signOut(): Promise<void> {
+  public signOut(): void {
     this.removeKey();
     this.signingSubject.next(this.isSignedIn());
-    await this.emitNavigate(l => l.Unauthorized);
+    this.emitNavigate(l => l.Unauthorized);
   }
 
   public subscribe(action: (next: boolean) => void): Subscription {
@@ -68,9 +68,9 @@ export class SigningService {
     localStorage.removeItem(StorageItem.AuthKey);
   }
 
-  private async emitNavigate(getLandingPage: (landing: LandingRoute) => Path = (l): Path => l.Default): Promise<void> {
+  private emitNavigate(getLandingPage: (landing: LandingRoute) => Path = (l): Path => l.Default): void {
     this.signingSubject.next(this.isSignedIn());
-    await this.navigator.navigate(b => b
+    this.navigator.navigate(b => b
       .to(r => r.Landing)
       .toPath(getLandingPage));
   }

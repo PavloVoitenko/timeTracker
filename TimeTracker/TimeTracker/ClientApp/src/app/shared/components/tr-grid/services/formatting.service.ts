@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { MOMENT_DATE_FORMAT } from '../../../../pages/tracking/util/tr.constants';
-
-import { ColumnDataType } from '../util/column';
 import { TWO_DIGIT_NUMBER } from '../../../util/constants';
+import { ColumnDataType } from '../util/column';
 
 export interface IFormattingService {
     // tslint:disable-next-line: no-any
@@ -31,6 +30,10 @@ export abstract class FormattingServiceBase implements IFormattingService {
 export class FormattingService extends FormattingServiceBase {
     // tslint:disable-next-line: no-any
     public format(value: any, dataType: ColumnDataType): string {
+        if (value === undefined) {
+            return '';
+        }
+
         switch (dataType) {
             case ColumnDataType.String:
                 return this.formatString(value as string);

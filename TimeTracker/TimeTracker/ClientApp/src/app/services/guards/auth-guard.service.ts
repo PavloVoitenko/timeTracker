@@ -18,9 +18,9 @@ export class AuthGuardService implements CanActivate {
     signingService.subscribe((next: boolean) => this.isSignedIn = next);
    }
 
-  public async canActivate(): Promise<boolean> {
+  public canActivate(): boolean {
     if (!this.isSignedIn) {
-      await this.navigator.navigate(b => b
+      this.navigator.navigate(b => b
         .to(r => r.Landing)
         .toPath(l => l.Unauthorized));
     }

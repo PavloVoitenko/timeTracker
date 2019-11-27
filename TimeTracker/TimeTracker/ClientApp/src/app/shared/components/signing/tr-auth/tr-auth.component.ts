@@ -35,11 +35,11 @@ export class AuthComponent implements OnInit {
 
   }
 
-  public async onClick(): Promise<void> {
+  public onClick(): void {
     if (this.isSignedIn) {
-      await this.signingService.signOut();
+      this.signingService.signOut();
     } else {
-      await this.navigator.navigate(b => b
+      this.navigator.navigate(b => b
         .to(r => r.Signing)
         .toPath(s => this.isSignIn ? s.In : s.Up));
     }

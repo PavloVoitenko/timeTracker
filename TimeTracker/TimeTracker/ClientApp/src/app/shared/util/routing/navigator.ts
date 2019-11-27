@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { from, Observable } from 'rxjs';
 
 import { DefaultRoute, Path } from './path';
 import { RootPath, RoutePath } from './routing-paths';
@@ -44,10 +45,10 @@ export class Navigator {
 
     private constructor(private readonly router: Router) {}
 
-    public async navigate(go: (builder: NavigationBuilder<RoutePath>) => string[]): Promise<boolean> {
+    public navigate(go: (builder: NavigationBuilder<RoutePath>) => string[]): Observable<boolean> {
         this.resetBuilder();
 
-        return this.router.navigate(this.getRouteTarget(go));
+        return from(this.router.navigate(this.getRouteTarget(go)));
     }
 
     public link(go: (builder: NavigationBuilder<RoutePath>) => string[]): string {
