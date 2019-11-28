@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CardLayoutService } from '../../services/card-layout.service';
+import { TrackingDataService } from '../../services/tracking-data.service';
 import { CardLayout } from '../../util/layout';
 import { TrackingSettings } from '../../util/tr-settings';
 
@@ -17,9 +18,11 @@ export class TrackingContentComponent implements OnChanges {
 
   public layout: CardLayout = new CardLayout();
 
-  public constructor(private readonly layoutService: CardLayoutService) { }
+  public constructor(private readonly layoutService: CardLayoutService, private readonly trackingData: TrackingDataService) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.layout = this.layoutService.createLayout(this.settings);
+
+    this.trackingData.prepare(this.settings.startDate, this.settings.endDate);
   }
 }

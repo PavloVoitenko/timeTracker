@@ -10,7 +10,7 @@ import { DataBaseService } from '../data-base-service.service';
  */
 @Injectable({
     providedIn: 'root',
-  })
+})
 export class TrackingService extends DataBaseService {
 
     public getAddress(): string {
