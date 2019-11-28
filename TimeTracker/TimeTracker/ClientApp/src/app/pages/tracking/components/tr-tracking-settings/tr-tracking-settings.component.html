@@ -1,0 +1,28 @@
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+    <div class="flex-column">
+        <mat-form-field>
+            <input matInput
+                [matDatepicker]="startDate"
+                [(ngModel)]="settings.startDate"
+                name="startDate"
+                placeholder="Start date"
+                disabled
+            > 
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput
+                [matDatepicker]="endDate"
+                [(ngModel)]="settings.endDate"
+                name="endDate"
+                placeholder="End date"
+                disabled
+            > 
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+    </div>
+    
+    <button mat-flat-button type="submit" color="primary">Apply</button>
+</form>

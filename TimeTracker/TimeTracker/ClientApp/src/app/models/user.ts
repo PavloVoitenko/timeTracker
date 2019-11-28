@@ -1,4 +1,7 @@
+/**
+ * User model
+ */
 export class User {
-    Username: string;
-    Password: string;
+    public username: string;
+    public password: string;
 }

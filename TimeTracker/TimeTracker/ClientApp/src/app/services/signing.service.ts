@@ -1,38 +1,47 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { UserService } from './data/user/user.service';
-import { User } from '../models/user';
-import { Token } from '../models/token';
-import { StorageItem, RoutePath } from '../app.module';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
+import { Token } from '../models/token';
+import { User } from '../models/user';
+import { StorageItem } from '../shared/util/constants';
+import { Navigator } from '../shared/util/routing/navigator';
+import { Path } from '../shared/util/routing/path';
+import { LandingRoute } from '../shared/util/routing/routing-paths';
+
+import { UserService } from './data/user/user.service';
+
+/**
+ * Service that handles signing in/up
+ */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SigningService {
 
-  private signingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isSignedIn());
+  private readonly signingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isSignedIn());
 
-  constructor(private service: UserService, private router: Router) {
-   }
+  public constructor(private readonly service: UserService, private readonly navigator: Navigator) {}
 
   public signIn(user: User): void {
-    this.service.auth(user).subscribe((token: Token) => {
+    this.service.auth(user).subscribe(async (token: Token) => {
       this.setKey(token);
-      this.emitNavigate();
+      this.signingSubject.next(this.isSignedIn());
+      await this.emitNavigate();
     });
   }
 
   public signUp(user: User): void {
-    this.service.create(user).subscribe((token: Token) => {
+    this.service.create(user).subscribe(async (token: Token) => {
       this.setKey(token);
-      this.emitNavigate();
+      this.signingSubject.next(this.isSignedIn());
+      await this.emitNavigate();
     });
   }
 
-  public signOut(): void {
+  public async signOut(): Promise<void> {
     this.removeKey();
-    this.emitNavigate(RoutePath.UnAuth);
+    this.signingSubject.next(this.isSignedIn());
+    await this.emitNavigate(l => l.Unauthorized);
   }
 
   public subscribe(action: (next: boolean) => void): Subscription {
@@ -40,19 +49,17 @@ export class SigningService {
   }
 
   public isSignedIn(): boolean {
-    if (this.getKey()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+    return this.getKey() !== '';
+   }
 
   public getKey(): string {
-    return localStorage.getItem(StorageItem.AuthKey);
+    const key = localStorage.getItem(StorageItem.AuthKey);
+
+    return key === null ? '' : key;
   }
 
   private setKey(token: Token): void {
-    if (token.token) {
+    if (token.token !== '') {
       localStorage.setItem(StorageItem.AuthKey, token.token);
     }
   }
@@ -61,8 +68,10 @@ export class SigningService {
     localStorage.removeItem(StorageItem.AuthKey);
   }
 
-  private emitNavigate(route: string = RoutePath.Home): void {
+  private async emitNavigate(getLandingPage: (landing: LandingRoute) => Path = (l): Path => l.Default): Promise<void> {
     this.signingSubject.next(this.isSignedIn());
-    this.router.navigate([route]);
+    await this.navigator.navigate(b => b
+      .to(r => r.Landing)
+      .toPath(getLandingPage));
   }
 }

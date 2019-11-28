@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TimeTracker.DTOs;
 using TimeTracker.Exceptions;
+using TimeTracker.Extensons;
 using TimeTracker.Model;
 
 
@@ -25,10 +26,12 @@ namespace TimeTracker.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<TrackingDto> Get([FromQuery]DateTime? periodStart, [FromQuery]DateTime? periodEnd)
+        public IEnumerable<TrackingDto> Get([FromQuery]DateTime periodStart, [FromQuery]DateTime periodEnd)
         {
-            periodStart ??= DateTime.MinValue;
-            periodEnd ??= DateTime.MaxValue;
+            if (periodStart == DateTime.MinValue || periodEnd == DateTime.MinValue)
+            {
+                return new List<TrackingDto>();
+            }
 
             var username = User.FindFirstValue(ClaimTypes.Name);
             var trackings = from tracking in _context.Tracking
@@ -48,11 +51,11 @@ namespace TimeTracker.Controllers
                                 TaskDescription = task.Description,
                                 TaskType = task.Type,
                                 TrackingDate = tracking.TrackingDate,
-                                StartTime = tracking.StartTime,
-                                EndTime = tracking.EndTime
+                                StartTime = tracking.StartTime.ToTime(),
+                                EndTime = tracking.EndTime.ToTime()
                             };
 
-            return trackings;
+            return trackings.ToList();
         }
 
         // POST api/<controller>
@@ -88,8 +91,8 @@ namespace TimeTracker.Controllers
             {
                 Task = task,
                 TrackingDate = trackingDto.TrackingDate,
-                StartTime = trackingDto.StartTime,
-                EndTime = trackingDto.EndTime,
+                StartTime = trackingDto.StartTime.ToSpan(),
+                EndTime = trackingDto.EndTime.ToSpan(),
                 User = user
             };
             _context.Add(tracking);

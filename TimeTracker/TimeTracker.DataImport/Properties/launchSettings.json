@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TimeTracker.DataImport": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\pavlov\\Desktop\\monfii_Enavate_2016.txt C:\\Users\\pavlov\\Desktop\\monfii_Enavate_2017.txt C:\\Users\\pavlov\\Desktop\\monfii_Enavate_2018.txt C:\\Users\\pavlov\\Desktop\\monfii_Enavate_2019.txt"
+    }
+  }
+}

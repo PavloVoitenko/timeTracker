@@ -1,5 +1,5 @@
 {
-  "name": "TimeTracker",
+  "name": "timetracker",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "build:ssr": "ng run TimeTracker:server:dev",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --format stylish --fix",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -20,6 +20,7 @@
     "@angular/forms": "8.2.9",
     "@angular/http": "7.2.15",
     "@angular/material": "^8.2.2",
+    "@angular/material-moment-adapter": "^8.2.3",
     "@angular/platform-browser": "8.2.9",
     "@angular/platform-browser-dynamic": "8.2.9",
     "@angular/platform-server": "8.2.9",
@@ -29,8 +30,11 @@
     "bootstrap": "^4.3.1",
     "core-js": "^3.2.1",
     "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "popper.js": "^1.15.0",
     "rxjs": "^6.5.3",
+    "stylus": "^0.54.7",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
@@ -40,6 +44,7 @@
     "@angular/language-service": "^8.2.9",
     "@types/jasmine": "^3.4.2",
     "@types/jasminewd2": "^2.0.8",
+    "@types/lodash": "^4.14.149",
     "@types/node": "~12.7.11",
     "codelyzer": "~5.1.2",
     "jasmine-core": "~3.5.0",

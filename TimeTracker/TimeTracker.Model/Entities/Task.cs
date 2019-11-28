@@ -15,11 +15,14 @@ namespace TimeTracker.Model.Entities
 
     public enum TaskType
     {
+        Unknown,
         Development,
         Testing,
         Investigation,
+        Design,
         Estimate,
-        Meeting
+        Meeting,
+        DevOperations
     }
 
 }

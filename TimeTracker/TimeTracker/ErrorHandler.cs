@@ -24,10 +24,11 @@ namespace TimeTracker
             }
             catch (FunctionalException e)
             {
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 var errorDto = new DTOs.ErrorDto
                 {
                     Message = e.Message,
-                    StatusCode = StatusCodes.Status500InternalServerError
+                    StatusCode = context.Response.StatusCode
                 };
                 var responseBytes = JsonConvert.SerializeObject(errorDto, Formatting.Indented).Select(c => Convert.ToByte(c)).ToArray();
 
