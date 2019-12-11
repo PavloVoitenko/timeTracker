@@ -74,7 +74,7 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
     ],
 })
 export class SharedModule {
-    public static forRoot(): ModuleWithProviders {
+    public static forRoot(): ModuleWithProviders<SharedModule> {
         return {
             ngModule: SharedModule,
             providers: [
