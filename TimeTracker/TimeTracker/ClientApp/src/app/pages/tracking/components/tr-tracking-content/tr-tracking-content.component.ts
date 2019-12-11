@@ -23,6 +23,6 @@ export class TrackingContentComponent implements OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
     this.layout = this.layoutService.createLayout(this.settings);
 
-    this.trackingData.prepare(this.settings.startDate, this.settings.endDate);
+    this.trackingData.preparePeriod(this.settings.dateOptions);
   }
 }

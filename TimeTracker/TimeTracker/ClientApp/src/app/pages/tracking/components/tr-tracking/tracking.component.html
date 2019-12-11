@@ -1,19 +1,7 @@
-<tr-card>
-    <mat-accordion [multi]="true">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Settings</mat-panel-title>
-            </mat-expansion-panel-header>
+<div class="tracking-content">
+    <tr-tracking-settings (settingsChanged)="setSettings($event)"></tr-tracking-settings>   
     
-            <tr-tracking-settings (settingsChanged)="setSettings($event)"></tr-tracking-settings>
-        </mat-expansion-panel>    
-    
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Content</mat-panel-title>
-            </mat-expansion-panel-header>
-            
-            <tr-tracking-content [settings]="currentSettings"></tr-tracking-content>
-        </mat-expansion-panel> 
-    </mat-accordion>            
-</tr-card>
+    <tr-card>
+        <tr-tracking-content [settings]="currentSettings"></tr-tracking-content>
+    </tr-card>
+</div>

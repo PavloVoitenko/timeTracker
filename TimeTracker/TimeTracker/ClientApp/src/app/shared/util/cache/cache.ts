@@ -1,5 +1,5 @@
 import { EMPTY, merge, Observable, of, Subject } from 'rxjs';
-import { map, mergeMap, tap, multicast, share } from 'rxjs/operators';
+import { map, mergeMap, multicast, share, tap } from 'rxjs/operators';
 
 import { ICacheKeyProvider } from './cache-key-provider';
 

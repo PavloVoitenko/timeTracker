@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { SigningService } from '../../../services/signing.service';
 import { Navigator } from '../../../shared/util/routing/navigator';
-import { Observable } from 'rxjs';
 
 /**
  * Unauthorized screen component

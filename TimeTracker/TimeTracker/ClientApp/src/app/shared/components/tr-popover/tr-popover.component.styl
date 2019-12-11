@@ -1,0 +1,30 @@
+@import '~src/styles/variables'
+
+:host
+    position: relative
+    background: $light-gray;
+    border-radius: 8px;
+
+.arrow 
+    position: absolute;
+    background: inherit;
+    z-index: -1;
+
+:host-context(.center) .arrow
+    left: 50%;
+
+:host-context(.top.left, .top.center) .arrow
+    transform-origin: top left;
+    transform: rotate(45deg);
+
+:host-context(bottom.left, .bottom.center) .arrow
+    transform-origin: top right;
+    transform: rotate(-45deg);
+
+:host-context(.bottom.left, .bottom.center) .arrow
+    transform-origin: bottom left;
+    transform: rotate(-45deg);
+
+:host-context(.bottom.right) .arrow
+    transform-origin: bottom right;
+    transform: rotate(45deg);

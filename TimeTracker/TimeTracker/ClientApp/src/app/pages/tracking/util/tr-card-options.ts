@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import { MOMENT_DATE_FORMAT } from './tr.constants';
 
-export enum ViewOption {
+export enum PeriodOption {
     Day,
     Week,
     Month,
@@ -12,7 +12,7 @@ export enum ViewOption {
  * Options for card visualizations
  */
 export class CardOptions {
-    public constructor(public view: ViewOption, public fromDate: moment.Moment, public toDate: moment.Moment) { }
+    public constructor(public view: PeriodOption, public fromDate: moment.Moment, public toDate: moment.Moment) { }
 
     public get title(): string {
         return this.fromDate.isSame(this.toDate, 'D') ?

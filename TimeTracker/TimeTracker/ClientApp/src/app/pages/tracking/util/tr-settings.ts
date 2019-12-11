@@ -1,21 +1,48 @@
 import * as moment from 'moment';
 
-import { ViewOption } from './tr-card-options';
+import { PeriodOption } from './tr-card-options';
+
+/**
+ * This class contains date options
+ */
+export class DateOptions {
+  public startDate: moment.Moment;
+  public endDate: moment.Moment;
+
+  public static get Default(): DateOptions {
+    return {
+      endDate: moment().endOf('isoWeek'),
+      startDate: moment().startOf('isoWeek'),
+    };
+  }
+}
+
+/**
+ * This class contains view options from tracking
+ */
+export class ViewOptions {
+  public viewOption: PeriodOption;
+  public skipEmptyDays: boolean;
+
+  public static get Default(): ViewOptions {
+    return {
+      skipEmptyDays: false,
+      viewOption: PeriodOption.Day,
+    };
+  }
+}
 
 /**
  * Setting for content of tracking screen
  */
 export class TrackingSettings {
-    public startDate: moment.Moment;
-    public endDate: moment.Moment;
-
-    public viewOption: ViewOption;
+    public dateOptions: DateOptions;
+    public viewOptions: ViewOptions;
 
     public static get Default(): TrackingSettings {
       return {
-        endDate: moment().endOf('isoWeek'),
-        startDate: moment().startOf('isoWeek'),
-        viewOption: ViewOption.Day,
+        dateOptions: DateOptions.Default,
+        viewOptions: ViewOptions.Default,
       };
     }
 }

@@ -5,6 +5,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { SigningService } from '../signing.service';
+import { Error } from '../../models/error';
 
 export enum StatusCode {
     NotAuthorized = 401,
@@ -22,22 +23,22 @@ export class ErrorInterceptor implements HttpInterceptor {
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
-                this.resolveError(error);
+                this.resolveError(error.error);
 
                 return EMPTY;
             }));
     }
 
-    private resolveError(error: { status: number; message: string }): string {
+    private resolveError(error: Error): string {
         let message = '';
 
-        switch (error.status) {
+        switch (error.StatusCode) {
             case StatusCode.NotAuthorized:
                 this.signingService.signOut();
                 message = 'You are not authorized';
                 break;
             default:
-                message = error.message;
+                message = error.Message;
         }
         this.toastr.error(message, 'An error occurred!');
 

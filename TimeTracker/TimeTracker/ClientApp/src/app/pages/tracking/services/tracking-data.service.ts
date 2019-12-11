@@ -9,6 +9,7 @@ import { TrackingService } from '../../../services/data/tracking/tracking.servic
 import { DataCache, IMinMax } from '../../../shared/util/cache/cache';
 import { MomentCacheKeyProvider } from '../../../shared/util/cache/cache-key-provider';
 import { MAX_DATE_NUMBER } from '../../../shared/util/constants';
+import { DateOptions } from '../util/tr-settings';
 
 /**
  * Cache of tracking lines
@@ -20,7 +21,11 @@ export class TrackingDataService extends DataCache<moment.Moment, Tracking[]> {
 
     public constructor(private readonly trackingService: TrackingService) {
         super(new MomentCacheKeyProvider());
-     }
+    }
+
+    public preparePeriod(dateOptions: DateOptions): void {
+        this.prepare(dateOptions.startDate, dateOptions.endDate);
+    }
 
     protected toArray(keyFrom: moment.Moment, keyTo: moment.Moment): moment.Moment[] {
         const result: moment.Moment[] = [ ];

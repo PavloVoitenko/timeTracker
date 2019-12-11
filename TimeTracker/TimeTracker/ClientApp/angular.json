@@ -15,6 +15,7 @@
           "options": {
             "progress": true,
             "extractCss": true,
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -27,7 +28,7 @@
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-toastr/toastr.css",
-              "src/styles.css"
+              "src/styles.styl"
             ],
             "scripts": []
           },
@@ -145,5 +146,8 @@
     "@schematics/angular:component": {
       "styleext": "styl"
     }
+  },
+  "cli": {
+    "analytics": "6174b810-e9cb-4757-99a6-6c99081b0dd6"
   }
 }
