@@ -1,5 +1,8 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { MatAccordion } from '@angular/material';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 
 import { TrackingSettings } from '../../util/tr-settings';
 
@@ -14,8 +17,6 @@ import { TrackingSettings } from '../../util/tr-settings';
 })
 export class TrackingComponent {
   public currentSettings: TrackingSettings;
-
-  public constructor(private readonly changeDetectorRef: ChangeDetectorRef) { }
 
   public setSettings(newSettings: TrackingSettings): void {
     this.currentSettings = { ...newSettings };

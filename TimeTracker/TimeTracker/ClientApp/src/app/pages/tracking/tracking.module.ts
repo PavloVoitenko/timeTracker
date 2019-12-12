@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MAT_DATE_LOCALE, MatSelectModule } from '@angular/material';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { Route, RouterModule } from '@angular/router';
 
 import { AuthGuardService } from '../../services/guards/auth-guard.service';
@@ -12,33 +12,33 @@ import { TrackingContentComponent } from './components/tr-tracking-content/tr-tr
 import { TrackingComponent } from './components/tr-tracking/tracking.component';
 
 const routes: Route[] = [
-    {
-        canActivate: [AuthGuardService],
-        component: TrackingComponent,
-        path: TrackingPath.Default.route,
-    },
+  {
+    canActivate: [AuthGuardService],
+    component: TrackingComponent,
+    path: TrackingPath.Default.route,
+  },
 ];
 
 /**
  * Tracking screen module
  */
 @NgModule({
-    declarations: [
-        TrackingComponent,
-        TrackingCardComponent,
-        TrackingContentComponent,
-    ],
-    imports: [
-        RouterModule.forChild(routes),
+  declarations: [
+    TrackingComponent,
+    TrackingCardComponent,
+    TrackingContentComponent,
+  ],
+  imports: [
+    RouterModule.forChild(routes),
 
-        SharedModule,
-        TrackingSettingsModule,
-    ],
-    providers: [
-        {
-            provide: MAT_DATE_LOCALE,
-            useValue: 'en-GB',
-        },
-    ],
+    SharedModule,
+    TrackingSettingsModule,
+  ],
+  providers: [
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'en-GB',
+    },
+  ],
 })
 export class TrackingModule {}

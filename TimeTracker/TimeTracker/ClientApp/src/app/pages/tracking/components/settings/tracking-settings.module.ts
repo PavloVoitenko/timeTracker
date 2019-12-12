@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-    MatButtonModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-} from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { SharedModule } from '../../../../shared/shared.module';
 
@@ -21,27 +19,27 @@ import { TrackingSettingsComponent } from './tr-tracking-settings/tr-tracking-se
  * This module contains components for tracking settings
  */
 @NgModule({
-    declarations: [
-        TrackingSettingsComponent,
-        TrackingSettingsDatesComponent,
-        TrackingSettingsViewFormComponent,
-        TrackingSettingsViewComponent,
-    ],
-    entryComponents: [TrackingSettingsViewFormComponent],
-    exports: [TrackingSettingsComponent],
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
+  declarations: [
+    TrackingSettingsComponent,
+    TrackingSettingsDatesComponent,
+    TrackingSettingsViewFormComponent,
+    TrackingSettingsViewComponent,
+  ],
+  entryComponents: [TrackingSettingsViewFormComponent],
+  exports: [TrackingSettingsComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
 
-        SharedModule,
+    SharedModule,
 
-        MatButtonModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSlideToggleModule,
-        MatDatepickerModule,
-        MatMomentDateModule,
-    ],
+    MatButtonModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+  ],
 })
 export class TrackingSettingsModule {}
