@@ -18,14 +18,15 @@ export class TrackingSettingsViewComponent {
 
   @Output() public changed = new BehaviorSubject<ViewOptions>(this.viewOptions);
 
-  public constructor(private readonly popoverService: PopoverService) { }
+  public constructor(private readonly popoverService: PopoverService) {}
 
   public showPopover(target: HTMLElement): void {
-    this.popoverService.open<ViewOptions>(TrackingSettingsViewFormComponent, target, { data: this.viewOptions })
+    this.popoverService
+      .open<ViewOptions>(TrackingSettingsViewFormComponent, target, { data: this.viewOptions })
       .afterClosed()
       .subscribe(vo => {
         this.viewOptions = vo;
         this.changed.next(this.viewOptions);
-    });
+      });
   }
 }

@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./tr-report.component.styl'],
   templateUrl: './tr-report.component.html',
 })
-export class ReportComponent {
-}
+export class ReportComponent {}

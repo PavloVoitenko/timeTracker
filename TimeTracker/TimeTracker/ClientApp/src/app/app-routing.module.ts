@@ -20,4 +20,4 @@ const routes: Route[] = [
   exports: [RouterModule],
   imports: [RouterModule.forRoot(routes)],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -13,18 +13,14 @@ import { Navigator } from '../../../shared/util/routing/navigator';
   templateUrl: './tr-unauth.component.html',
 })
 export class UnauthComponent implements OnInit {
-
   public cardTitle = 'Whoops!';
   public cardSubtitle = 'It seems that you are not authorized.';
 
-  public constructor(private readonly signingService: SigningService, private readonly navigator: Navigator) { }
+  public constructor(private readonly signingService: SigningService, private readonly navigator: Navigator) {}
 
   public ngOnInit(): void {
     if (this.signingService.isSignedIn()) {
-      this.navigator.navigate(b => b
-        .to(p => p.Landing)
-        .toDefault());
+      this.navigator.navigate(b => b.to(p => p.Landing).toDefault());
     }
   }
-
 }

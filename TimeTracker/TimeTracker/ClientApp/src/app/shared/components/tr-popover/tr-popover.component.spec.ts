@@ -8,9 +8,8 @@ describe('TrPopoverComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PopoverComponent ]
-    })
-    .compileComponents();
+      declarations: [PopoverComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -11,13 +11,11 @@ import { SigningService } from '../../../../services/signing.service';
   templateUrl: './tr-signing.component.html',
 })
 export class SigningComponent implements OnInit {
-
   public isSignedIn: boolean;
 
-  public constructor(private readonly signingService: SigningService) { }
+  public constructor(private readonly signingService: SigningService) {}
 
   public ngOnInit(): void {
-    this.signingService.subscribe((next: boolean) => this.isSignedIn = next);
+    this.signingService.subscribe((next: boolean) => (this.isSignedIn = next));
   }
-
 }

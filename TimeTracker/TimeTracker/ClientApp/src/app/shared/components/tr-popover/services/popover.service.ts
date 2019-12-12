@@ -19,60 +19,67 @@ const TWO = 2;
   providedIn: 'root',
 })
 export class PopoverService {
-
-  public constructor(private readonly overlay: Overlay, private readonly injector: Injector) { }
+  public constructor(private readonly overlay: Overlay, private readonly injector: Injector) {}
 
   public open<D = ILooseObject>(
     // tslint:disable-next-line: no-any
     componentOrTemplate: ComponentType<any> | TemplateRef<any>,
     target: ElementRef | HTMLElement,
-    config: Partial<PopoverConfig> = {}): PopoverRef<D> {
+    config: Partial<PopoverConfig> = {},
+  ): PopoverRef<D> {
+    const popoverConfig = { ...PopoverConfig.Default, ...config };
 
-      const popoverConfig = { ...PopoverConfig.Default, ...config };
+    const arrowSize = popoverConfig.arrowSize;
+    const arrowOffset = popoverConfig.arrowOffset !== undefined ? popoverConfig.arrowOffset : 0;
+    const panelOffset = arrowSize !== undefined ? arrowSize / TWO : 0;
 
-      const arrowSize = popoverConfig.arrowSize;
-      const arrowOffset =  popoverConfig.arrowOffset !== undefined ? popoverConfig.arrowOffset : 0;
-      const panelOffset = arrowSize !== undefined ? arrowSize / TWO : 0;
+    const preferredPositions = this.getPositionStrategies(arrowOffset, panelOffset);
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(target)
+      .withPush(false)
+      .withFlexibleDimensions(false)
+      .withPositions(preferredPositions);
 
-      const preferredPositions = this.getPositionStrategies(arrowOffset, panelOffset);
-      const positionStrategy = this.overlay
-        .position()
-        .flexibleConnectedTo(target)
-        .withPush(false)
-        .withFlexibleDimensions(false)
-        .withPositions(preferredPositions);
+    const overlayRef = this.overlay.create({
+      backdropClass: config.backdropClass,
+      hasBackdrop: true,
+      panelClass: config.panelClass,
+      positionStrategy,
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+    });
 
-      const overlayRef = this.overlay.create({
-        backdropClass: config.backdropClass,
-        hasBackdrop: true,
-        panelClass: config.panelClass,
-        positionStrategy,
-        scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      });
+    // tslint:disable-next-line: no-any
+    const popoverRef = new PopoverRef<any>(overlayRef, positionStrategy, popoverConfig);
 
-      // tslint:disable-next-line: no-any
-      const popoverRef = new PopoverRef<any>(overlayRef, positionStrategy, popoverConfig);
+    const popover = overlayRef.attach(
+      new ComponentPortal(PopoverComponent, undefined, new PortalInjector(this.injector, new WeakMap([[PopoverRef, popoverRef]]))),
+    ).instance;
 
-      const popover = overlayRef.attach(new ComponentPortal(PopoverComponent, undefined, new PortalInjector(
-          this.injector, new WeakMap([ [ PopoverRef, popoverRef ] ])))).instance;
+    if (componentOrTemplate instanceof TemplateRef) {
+      popover.attachTemplatePortal(
+        new TemplatePortal(componentOrTemplate, (undefined as unknown) as ViewContainerRef, {
+          $implicit: config.data,
+          popover: popoverRef,
+        }),
+      );
+    } else {
+      popover.attachComponentPortal(
+        new ComponentPortal(
+          componentOrTemplate,
+          undefined,
+          new PortalInjector(
+            this.injector,
+            new WeakMap<ILooseObject>([
+              [POPOVER_DATA, config.data],
+              [PopoverRef, popoverRef],
+            ]),
+          ),
+        ),
+      );
+    }
 
-      if (componentOrTemplate instanceof TemplateRef) {
-        popover.attachTemplatePortal(
-          new TemplatePortal(
-            componentOrTemplate,
-            undefined as unknown as ViewContainerRef,
-            { $implicit: config.data, popover: popoverRef },
-        ));
-      } else {
-        popover.attachComponentPortal(new ComponentPortal(componentOrTemplate, undefined, new PortalInjector(
-          this.injector,
-          new WeakMap<ILooseObject>([
-            [POPOVER_DATA, config.data],
-            [PopoverRef, popoverRef],
-        ]))));
-      }
-
-      return popoverRef;
+    return popoverRef;
   }
 
   private getPositionStrategies(arrowOffset: number, panelOffset: number): ConnectionPositionPair[] {

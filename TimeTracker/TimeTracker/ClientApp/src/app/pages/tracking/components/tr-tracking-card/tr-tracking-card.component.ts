@@ -18,7 +18,6 @@ import { CardOptions } from '../../util/tr-card-options';
   templateUrl: './tr-tracking-card.component.html',
 })
 export class TrackingCardComponent implements OnChanges {
-
   @Input() public cardOptions: CardOptions;
 
   public dataSource: Datasource<Tracking>;
@@ -26,18 +25,16 @@ export class TrackingCardComponent implements OnChanges {
   private previousSubscription: Subscription = Subscription.EMPTY;
 
   public constructor(private readonly trackingData: TrackingDataService, private readonly changeDetectorRef: ChangeDetectorRef) {
-    this.initDataSource([ new Tracking() ]);
-   }
+    this.initDataSource([new Tracking()]);
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (!this.previousSubscription.closed) {
       this.previousSubscription.unsubscribe();
     }
 
-    this.previousSubscription = this.trackingData
-      .get(this.cardOptions.fromDate)
-      .subscribe((trackings: Tracking[]) => {
-        this.initDataSource(trackings, true);
+    this.previousSubscription = this.trackingData.get(this.cardOptions.fromDate).subscribe((trackings: Tracking[]) => {
+      this.initDataSource(trackings, true);
     });
   }
 

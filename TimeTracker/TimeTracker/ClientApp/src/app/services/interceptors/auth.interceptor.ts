@@ -9,16 +9,15 @@ import { StorageItem } from '../../shared/util/constants';
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const key = localStorage.getItem(StorageItem.AuthKey);
+    let newReq = req;
 
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const key = localStorage.getItem(StorageItem.AuthKey);
-        let newReq = req;
-
-        if (key !== '') {
-            const headers = req.headers.append('Authorization', `Bearer ${key}`);
-            newReq = req.clone({ headers });
-        }
-
-        return next.handle(newReq);
+    if (key !== '') {
+      const headers = req.headers.append('Authorization', `Bearer ${key}`);
+      newReq = req.clone({ headers });
     }
+
+    return next.handle(newReq);
+  }
 }

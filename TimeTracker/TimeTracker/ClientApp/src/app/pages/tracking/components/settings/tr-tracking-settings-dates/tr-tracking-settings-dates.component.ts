@@ -13,7 +13,6 @@ import { DateOptions } from '../../../util/tr-settings';
   templateUrl: './tr-tracking-settings-dates.component.html',
 })
 export class TrackingSettingsDatesComponent implements OnInit {
-
   public dateOptions: DateOptions = DateOptions.Default;
 
   @Output() public changed = new BehaviorSubject<DateOptions>(this.dateOptions);

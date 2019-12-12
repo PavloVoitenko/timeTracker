@@ -18,10 +18,10 @@ export class SigningFormComponent implements OnInit {
 
   public model: User = new User();
 
-  public constructor(private readonly signingService: SigningService) { }
+  public constructor(private readonly signingService: SigningService) {}
 
   public ngOnInit(): void {
-     this.cardTitle = this.isSignIn ? 'Sign In' : 'Sign Up';
+    this.cardTitle = this.isSignIn ? 'Sign In' : 'Sign Up';
   }
 
   public onSubmit(): void {
@@ -31,5 +31,4 @@ export class SigningFormComponent implements OnInit {
       this.signingService.signUp(this.model);
     }
   }
-
 }

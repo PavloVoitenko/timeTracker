@@ -8,9 +8,8 @@ describe('TrTrackingContentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrackingContentComponent ]
-    })
-    .compileComponents();
+      declarations: [TrackingContentComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

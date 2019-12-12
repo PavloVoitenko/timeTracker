@@ -5,9 +5,9 @@ import { InjectionToken, Injector } from '@angular/core';
  */
 // tslint:disable-next-line: no-unnecessary-class
 export class LocatorService {
-    public static injector: Injector;
+  public static injector: Injector;
 
-    public static get<T>(token: string): T {
-        return LocatorService.injector.get(new InjectionToken<T>(token));
-    }
+  public static get<T>(token: string): T {
+    return LocatorService.injector.get(new InjectionToken<T>(token));
+  }
 }

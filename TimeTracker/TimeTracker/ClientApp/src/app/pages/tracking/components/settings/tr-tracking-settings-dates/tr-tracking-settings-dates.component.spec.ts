@@ -8,9 +8,8 @@ describe('TrTrackingSettingsDatesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrackingSettingsDatesComponent ]
-    })
-    .compileComponents();
+      declarations: [TrackingSettingsDatesComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

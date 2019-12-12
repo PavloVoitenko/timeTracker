@@ -8,10 +8,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export abstract class DataBaseService {
+  protected appJson = { 'Content-Type': 'application/json' };
 
-  protected appJson = {'Content-Type': 'application/json'};
-
-  public constructor(protected http: HttpClient) { }
+  public constructor(protected http: HttpClient) {}
 
   public abstract getAddress(): string;
 }

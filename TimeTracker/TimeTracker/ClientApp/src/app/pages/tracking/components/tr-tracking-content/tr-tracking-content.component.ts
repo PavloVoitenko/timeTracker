@@ -18,7 +18,7 @@ export class TrackingContentComponent implements OnChanges {
 
   public layout: CardLayout = new CardLayout();
 
-  public constructor(private readonly layoutService: CardLayoutService, private readonly trackingData: TrackingDataService) { }
+  public constructor(private readonly layoutService: CardLayoutService, private readonly trackingData: TrackingDataService) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.layout = this.layoutService.createLayout(this.settings);

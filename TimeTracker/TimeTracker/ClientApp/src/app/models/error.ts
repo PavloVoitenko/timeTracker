@@ -4,6 +4,6 @@
  * This class represents an error
  */
 export class Error {
-    public Message: string;
-    public StatusCode: number;
+  public Message: string;
+  public StatusCode: number;
 }

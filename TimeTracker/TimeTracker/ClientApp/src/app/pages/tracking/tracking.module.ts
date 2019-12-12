@@ -23,17 +23,8 @@ const routes: Route[] = [
  * Tracking screen module
  */
 @NgModule({
-  declarations: [
-    TrackingComponent,
-    TrackingCardComponent,
-    TrackingContentComponent,
-  ],
-  imports: [
-    RouterModule.forChild(routes),
-
-    SharedModule,
-    TrackingSettingsModule,
-  ],
+  declarations: [TrackingComponent, TrackingCardComponent, TrackingContentComponent],
+  imports: [RouterModule.forChild(routes), SharedModule, TrackingSettingsModule],
   providers: [
     {
       provide: MAT_DATE_LOCALE,

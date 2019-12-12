@@ -1,9 +1,9 @@
 {
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-      "module": "esnext"
-    },
-    "angularCompilerOptions": {
-      "entryModule": "app/app.server.module#AppServerModule"
-    }
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext"
+  },
+  "angularCompilerOptions": {
+    "entryModule": "app/app.server.module#AppServerModule"
+  }
 }

@@ -12,7 +12,6 @@ import { DataBaseService } from '../data-base-service.service';
   providedIn: 'root',
 })
 export class UserService extends DataBaseService {
-
   public getAddress(): string {
     return '/api/user/';
   }

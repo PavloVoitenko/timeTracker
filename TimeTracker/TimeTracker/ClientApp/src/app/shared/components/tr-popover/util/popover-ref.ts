@@ -10,40 +10,43 @@ import { PopoverConfig } from './popover-config';
  * This class references a popover via a popover services
  */
 export class PopoverRef<T = ILooseObject> {
-    private readonly afterClosedOkSubject = new Subject<T>();
+  private readonly afterClosedOkSubject = new Subject<T>();
 
-    public constructor(
-        private readonly overlayRef: OverlayRef,
-        private readonly positionStrategy: FlexibleConnectedPositionStrategy,
-        public config: PopoverConfig) {
-
-        if (!config.disableClose) {
-            this.overlayRef.backdropClick().subscribe(() => {
-                this.close();
-            });
-
-            this.overlayRef.keydownEvents().pipe(filter(event => event.key === 'Escape')).subscribe(() => {
-                this.close();
-            });
-        }
-    }
-
-    public closeOk(dialogResult?: T): void {
-        this.afterClosedOkSubject.next(dialogResult);
-        this.afterClosedOkSubject.complete();
-
+  public constructor(
+    private readonly overlayRef: OverlayRef,
+    private readonly positionStrategy: FlexibleConnectedPositionStrategy,
+    public config: PopoverConfig,
+  ) {
+    if (!config.disableClose) {
+      this.overlayRef.backdropClick().subscribe(() => {
         this.close();
-    }
+      });
 
-    public close(): void {
-        this.overlayRef.dispose();
+      this.overlayRef
+        .keydownEvents()
+        .pipe(filter(event => event.key === 'Escape'))
+        .subscribe(() => {
+          this.close();
+        });
     }
+  }
 
-    public afterClosed(): Observable<T> {
-        return this.afterClosedOkSubject.asObservable();
-    }
+  public closeOk(dialogResult?: T): void {
+    this.afterClosedOkSubject.next(dialogResult);
+    this.afterClosedOkSubject.complete();
 
-    public positionChanges(): Observable<ConnectedOverlayPositionChange> {
-        return this.positionStrategy.positionChanges;
-    }
+    this.close();
+  }
+
+  public close(): void {
+    this.overlayRef.dispose();
+  }
+
+  public afterClosed(): Observable<T> {
+    return this.afterClosedOkSubject.asObservable();
+  }
+
+  public positionChanges(): Observable<ConnectedOverlayPositionChange> {
+    return this.positionStrategy.positionChanges;
+  }
 }

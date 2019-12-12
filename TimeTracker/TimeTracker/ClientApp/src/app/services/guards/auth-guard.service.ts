@@ -11,18 +11,15 @@ import { SigningService } from '../signing.service';
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-
   public isSignedIn: boolean;
 
   public constructor(private readonly signingService: SigningService, private readonly navigator: Navigator) {
-    signingService.subscribe((next: boolean) => this.isSignedIn = next);
-   }
+    signingService.subscribe((next: boolean) => (this.isSignedIn = next));
+  }
 
   public canActivate(): boolean {
     if (!this.isSignedIn) {
-      this.navigator.navigate(b => b
-        .to(r => r.Landing)
-        .toPath(l => l.Unauthorized));
+      this.navigator.navigate(b => b.to(r => r.Landing).toPath(l => l.Unauthorized));
     }
 
     return this.isSignedIn;

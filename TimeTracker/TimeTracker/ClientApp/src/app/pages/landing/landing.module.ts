@@ -9,21 +9,15 @@ import { HomeComponent } from './tr-home/tr-home.component';
 import { UnauthComponent } from './tr-unauth/tr-unauth.component';
 
 const routes: Route[] = [
-    { path: LandingPath.Default.route, component: HomeComponent, canActivate: [ AuthGuardService ] },
-    { path: LandingPath.Unauthorized.route, component: UnauthComponent },
+  { path: LandingPath.Default.route, component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: LandingPath.Unauthorized.route, component: UnauthComponent },
 ];
 
 /**
  * Landing pages module
  */
 @NgModule({
-    declarations: [
-        HomeComponent,
-        UnauthComponent,
-    ],
-    imports: [
-        RouterModule.forChild(routes),
-        SharedModule,
-    ],
+  declarations: [HomeComponent, UnauthComponent],
+  imports: [RouterModule.forChild(routes), SharedModule],
 })
 export class LandingModule {}

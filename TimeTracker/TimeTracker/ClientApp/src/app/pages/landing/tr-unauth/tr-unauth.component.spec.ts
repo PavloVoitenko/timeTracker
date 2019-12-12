@@ -8,9 +8,8 @@ describe('TrUnauthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrUnauthComponent ]
-    })
-    .compileComponents();
+      declarations: [TrUnauthComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

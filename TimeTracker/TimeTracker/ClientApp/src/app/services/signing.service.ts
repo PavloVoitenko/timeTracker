@@ -17,7 +17,6 @@ import { UserService } from './data/user/user.service';
   providedIn: 'root',
 })
 export class SigningService {
-
   private readonly signingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isSignedIn());
 
   public constructor(private readonly service: UserService, private readonly navigator: Navigator) {}
@@ -50,7 +49,7 @@ export class SigningService {
 
   public isSignedIn(): boolean {
     return this.getKey() !== '';
-   }
+  }
 
   public getKey(): string {
     const key = localStorage.getItem(StorageItem.AuthKey);
@@ -70,8 +69,6 @@ export class SigningService {
 
   private emitNavigate(getLandingPage: (landing: LandingRoute) => Path = (l): Path => l.Default): void {
     this.signingSubject.next(this.isSignedIn());
-    this.navigator.navigate(b => b
-      .to(r => r.Landing)
-      .toPath(getLandingPage));
+    this.navigator.navigate(b => b.to(r => r.Landing).toPath(getLandingPage));
   }
 }

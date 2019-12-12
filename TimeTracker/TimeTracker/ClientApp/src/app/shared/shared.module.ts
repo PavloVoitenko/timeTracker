@@ -11,10 +11,7 @@ import { RouterModule } from '@angular/router';
 import { AuthComponent } from './components/signing/tr-auth/tr-auth.component';
 import { SigningComponent } from './components/signing/tr-signing/tr-signing.component';
 import { CardComponent } from './components/tr-card/tr-card.component';
-import {
-    FormattingService,
-    FormattingServiceBase,
-} from './components/tr-grid/services/formatting.service';
+import { FormattingService, FormattingServiceBase } from './components/tr-grid/services/formatting.service';
 import { GridComponent } from './components/tr-grid/tr-grid.component';
 import { NavbarComponent } from './components/tr-navbar/tr-navbar.component';
 import { PopoverArrowDirective } from './components/tr-popover/directives/popover-arrow.directive';
@@ -26,61 +23,50 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
  * Common components for application
  */
 @NgModule({
-    declarations: [
-        CardComponent,
-        NavbarComponent,
-        GridComponent,
-        PopoverComponent,
+  declarations: [
+    CardComponent,
+    NavbarComponent,
+    GridComponent,
+    PopoverComponent,
 
-        AuthComponent,
-        SigningComponent,
+    AuthComponent,
+    SigningComponent,
 
-        PopoverArrowDirective,
-        PopoverCloseDirective,
+    PopoverArrowDirective,
+    PopoverCloseDirective,
 
-        EnumToArrayPipe,
-    ],
-    entryComponents: [PopoverComponent],
-    exports: [
-        CommonModule,
+    EnumToArrayPipe,
+  ],
+  entryComponents: [PopoverComponent],
+  exports: [
+    CommonModule,
 
-        CardComponent,
-        NavbarComponent,
-        GridComponent,
-        PopoverComponent,
+    CardComponent,
+    NavbarComponent,
+    GridComponent,
+    PopoverComponent,
 
-        AuthComponent,
-        SigningComponent,
+    AuthComponent,
+    SigningComponent,
 
-        EnumToArrayPipe,
+    EnumToArrayPipe,
 
-        PopoverCloseDirective,
+    PopoverCloseDirective,
 
-        MatSelectModule, // provide MAT_SELECT_SCROLL_STRATEGY FFS
-    ],
-    imports: [
-        CommonModule,
-        RouterModule,
-        OverlayModule,
-        PortalModule,
-
-        MatToolbarModule,
-        MatCardModule,
-        MatButtonModule,
-
-        MatSelectModule,
-    ],
+    MatSelectModule, // provide MAT_SELECT_SCROLL_STRATEGY FFS
+  ],
+  imports: [CommonModule, RouterModule, OverlayModule, PortalModule, MatToolbarModule, MatCardModule, MatButtonModule, MatSelectModule],
 })
 export class SharedModule {
-    public static forRoot(): ModuleWithProviders<SharedModule> {
-        return {
-            ngModule: SharedModule,
-            providers: [
-                {
-                    provide: FormattingServiceBase,
-                    useClass: FormattingService,
-                },
-            ],
-        };
-    }
+  public static forRoot(): ModuleWithProviders<SharedModule> {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        {
+          provide: FormattingServiceBase,
+          useClass: FormattingService,
+        },
+      ],
+    };
+  }
 }

@@ -48,5 +48,4 @@ export class PopoverArrowDirective implements OnDestroy {
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }

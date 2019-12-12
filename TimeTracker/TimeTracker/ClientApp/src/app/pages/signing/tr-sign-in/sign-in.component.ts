@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-in.component.styl'],
   templateUrl: './sign-in.component.html',
 })
-export class SignInComponent {
-}
+export class SignInComponent {}

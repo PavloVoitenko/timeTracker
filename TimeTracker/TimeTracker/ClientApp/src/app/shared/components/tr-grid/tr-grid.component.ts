@@ -14,13 +14,11 @@ import { Datasource } from './util/datasource';
   templateUrl: './tr-grid.component.html',
 })
 export class GridComponent {
-
-  public constructor(private readonly changeDetectorRef: ChangeDetectorRef) { }
+  public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   @Input() public dataSource: Datasource<object>;
 
   public isRowEditable(row: ILooseObject): boolean {
     return false; // this.editableRow.isSameRow(row);
   }
-
 }

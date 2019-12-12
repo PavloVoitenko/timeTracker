@@ -8,9 +8,8 @@ describe('TrTrackingSettingsViewFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrackingSettingsViewFormComponent ]
-    })
-    .compileComponents();
+      declarations: [TrackingSettingsViewFormComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

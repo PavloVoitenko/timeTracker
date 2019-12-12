@@ -15,33 +15,33 @@ import { SharedModule } from './shared/shared.module';
  * Main application module
  */
 @NgModule({
-    bootstrap: [AppComponent],
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-        SharedModule.forRoot(),
+  bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    SharedModule.forRoot(),
 
-        HttpClientModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
 
-        ToastrModule.forRoot(),
-    ],
-    providers: [
-        {
-            multi: true,
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-        },
-        {
-            multi: true,
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorInterceptor,
-        },
-    ],
+    ToastrModule.forRoot(),
+  ],
+  providers: [
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+    },
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+    },
+  ],
 })
 export class AppModule {
-    public constructor(private readonly injector: Injector) {
-        LocatorService.injector = injector;
-    }
+  public constructor(private readonly injector: Injector) {
+    LocatorService.injector = injector;
+  }
 }

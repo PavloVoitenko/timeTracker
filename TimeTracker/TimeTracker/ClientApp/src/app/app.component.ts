@@ -12,18 +12,12 @@ import { IMenuItem } from './shared/components/tr-navbar/tr-navbar.component';
 export class AppComponent {
   public navigationItems: IMenuItem[] = [
     {
-      getTarget: (b): string[] => b
-        .to(r => r.Tracking)
-        .toDefault(),
+      getTarget: (b): string[] => b.to(r => r.Tracking).toDefault(),
       name: 'Tracking',
-
     },
     {
-      getTarget: (b): string[] => b
-        .to(r => r.Report)
-        .toDefault(),
+      getTarget: (b): string[] => b.to(r => r.Report).toDefault(),
       name: 'Report',
     },
   ];
-
 }

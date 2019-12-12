@@ -8,9 +8,8 @@ describe('TrSigningFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrSigningFormComponent ]
-    })
-    .compileComponents();
+      declarations: [TrSigningFormComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

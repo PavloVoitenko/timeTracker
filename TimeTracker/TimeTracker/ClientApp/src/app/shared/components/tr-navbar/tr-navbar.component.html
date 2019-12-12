@@ -1,6 +1,6 @@
 <mat-toolbar>
-    <h1 routerLink="/" class="no-outline">Time tracking</h1>
-    <h2 *ngFor="let item of menu" routerLink="{{item.link}}" class="no-outline" color="primary">{{item.name}}</h2>
-    <span class="fill-remaining"></span>
-    <tr-signing></tr-signing>
+  <h1 routerLink="/" class="no-outline">Time tracking</h1>
+  <h2 *ngFor="let item of menu" routerLink="{{ item.link }}" class="no-outline" color="primary">{{ item.name }}</h2>
+  <span class="fill-remaining"></span>
+  <tr-signing></tr-signing>
 </mat-toolbar>

@@ -2,5 +2,5 @@
  * Token model
  */
 export class Token {
-    public token: string;
+  public token: string;
 }

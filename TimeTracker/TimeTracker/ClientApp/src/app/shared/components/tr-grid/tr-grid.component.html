@@ -1,22 +1,22 @@
 <table>
-    <thead>
-        <tr>
-            <th *ngFor="let header of dataSource.data.headers">{{header.displayName}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let row of dataSource.data.rows" >
-            <ng-container *ngIf="isRowEditable(row) then editableRow else readonlyRow"></ng-container>
+  <thead>
+    <tr>
+      <th *ngFor="let header of dataSource.data.headers">{{ header.displayName }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of dataSource.data.rows">
+      <ng-container *ngIf="isRowEditable(row); then editableRow; else readonlyRow"></ng-container>
 
-            <ng-template #editableRow>
-                <td></td>
-            </ng-template>
-            
-            <ng-template #readonlyRow>
-                <ng-container *ngFor="let column of dataSource.data.headers">
-                    <td>{{row[column.key]}}</td>
-                </ng-container>
-            </ng-template>
-        </tr>
-    </tbody>
+      <ng-template #editableRow>
+        <td></td>
+      </ng-template>
+
+      <ng-template #readonlyRow>
+        <ng-container *ngFor="let column of dataSource.data.headers">
+          <td>{{ row[column.key] }}</td>
+        </ng-container>
+      </ng-template>
+    </tr>
+  </tbody>
 </table>
