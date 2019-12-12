@@ -1,22 +1,14 @@
 <tr-card>
-    <form class="flex-column">
-        <mat-form-field>
-            <mat-label>View option</mat-label>
-            <mat-select [(ngModel)]="data.viewOption" name="viewOption">
-                <mat-option
-                    *ngFor="let pair of viewOptionsEnum | enumToArray"
-                    value="pair.index"
-                    >{{ pair.name }}</mat-option
-                >
-            </mat-select>
-        </mat-form-field>
+  <div class="flex-column">
+    <mat-form-field>
+      <mat-label>View option</mat-label>
+      <mat-select [(ngModel)]="data.viewOption" name="viewOption">
+        <mat-option *ngFor="let pair of viewOptionsEnum | enumToArray" [value]="pair.index">{{ pair.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <mat-form-field>
-            <mat-slide-toggle [(ngModel)]="data.skipEmptyDays" name="skipEmpty"
-                >Show empty</mat-slide-toggle
-            >
-        </mat-form-field>
+    <mat-slide-toggle [(ngModel)]="data.skipEmptyDays" name="skipEmpty">Show empty</mat-slide-toggle>
 
-        <button mat-button trPopoverClose>Apply</button>
-    </form>
+    <button class="submit-button" color="accent" mat-flat-button trPopoverClose [popoverResult]="data">Apply</button>
+  </div>
 </tr-card>

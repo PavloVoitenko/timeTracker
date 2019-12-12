@@ -26,7 +26,7 @@ export class ViewOptions {
 
   public static get Default(): ViewOptions {
     return {
-      skipEmptyDays: false,
+      skipEmptyDays: true,
       viewOption: PeriodOption.Day,
     };
   }
@@ -36,13 +36,13 @@ export class ViewOptions {
  * Setting for content of tracking screen
  */
 export class TrackingSettings {
-    public dateOptions: DateOptions;
-    public viewOptions: ViewOptions;
+  public dateOptions: DateOptions;
+  public viewOptions: ViewOptions;
 
-    public static get Default(): TrackingSettings {
-      return {
-        dateOptions: DateOptions.Default,
-        viewOptions: ViewOptions.Default,
-      };
-    }
+  public static get Default(): TrackingSettings {
+    return {
+      dateOptions: DateOptions.Default,
+      viewOptions: ViewOptions.Default,
+    };
+  }
 }

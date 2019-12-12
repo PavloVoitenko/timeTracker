@@ -14,10 +14,10 @@ import { ViewOptions } from '../../../util/tr-settings';
   templateUrl: './tr-tracking-settings-view-form.component.html',
 })
 export class TrackingSettingsViewFormComponent {
-
   public readonly viewOptionsEnum = PeriodOption;
 
   public constructor(
     @Optional() @Inject(POPOVER_DATA) public data: ViewOptions = ViewOptions.Default,
-    private readonly popoverRef: PopoverRef<ViewOptions>) { }
+    private readonly popoverRef: PopoverRef<ViewOptions>,
+  ) {}
 }

@@ -34,8 +34,8 @@ import { TrackingSettingsComponent } from './tr-tracking-settings/tr-tracking-se
     SharedModule,
 
     MatButtonModule,
-    MatSelectModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatInputModule,
     MatSlideToggleModule,
     MatDatepickerModule,

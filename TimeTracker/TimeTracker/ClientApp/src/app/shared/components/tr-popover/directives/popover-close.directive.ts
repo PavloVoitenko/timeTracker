@@ -1,3 +1,5 @@
+// tslint:disable: no-unsafe-any
+
 import { Directive, HostListener, Input, Optional } from '@angular/core';
 
 import { ILooseObject } from '../../../util/loose-object';
@@ -12,9 +14,8 @@ import { PopoverRef } from '../util/popover-ref';
 export class PopoverCloseDirective<T = ILooseObject> {
   @Input() public popoverResult: T;
 
-  public constructor(@Optional() private readonly popoverRef: PopoverRef<T>) { }
+  public constructor(@Optional() private readonly popoverRef: PopoverRef<T>) {}
 
-  // tslint:disable-next-line: no-unsafe-any
   @HostListener('click')
   public onClick(): void {
     if (!this.popoverRef) {
@@ -24,5 +25,10 @@ export class PopoverCloseDirective<T = ILooseObject> {
     }
 
     this.popoverRef.closeOk(this.popoverResult);
+  }
+
+  @HostListener('submit', ['$event'])
+  public onSubmit(event: Event): void {
+    event.preventDefault();
   }
 }
