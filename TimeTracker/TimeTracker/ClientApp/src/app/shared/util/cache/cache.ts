@@ -1,5 +1,5 @@
-import { EMPTY, merge, Observable, of, Subject } from 'rxjs';
-import { map, mergeMap, multicast, share, tap } from 'rxjs/operators';
+import { combineLatest, EMPTY, merge, Observable, of, pipe } from 'rxjs';
+import { combineAll, map, mergeMap, share, tap } from 'rxjs/operators';
 
 import { ICacheKeyProvider } from './cache-key-provider';
 
@@ -27,12 +27,29 @@ export abstract class DataCache<TKey, TValue, TData = TValue> {
     return this.getFromCache(key);
   }
 
+  public getRange(keyFrom: TKey, keyTo: TKey): Observable<TValue[]> {
+    const keys = this.toArray(keyFrom, keyTo);
+
+    if (this.isPreparing) {
+      return this.preparation.pipe(
+        mergeMap(
+          (): Array<Observable<TValue>> => {
+            return keys.map(key => this.getFromCache(key));
+          },
+        ),
+        combineAll(),
+      );
+    }
+
+    return of(...keys.map(key => this.getFromCache(key))).pipe(combineAll());
+  }
+
   public set(key: TKey, value: TValue): void {
-    this.cache.set(this.getKey(key), value);
+    this.cache.set(this.getKeyString(key), value);
   }
 
   public delete(key: TKey): boolean {
-    return this.cache.delete(this.getKey(key));
+    return this.cache.delete(this.getKeyString(key));
   }
 
   public clear(): void {
@@ -40,7 +57,7 @@ export abstract class DataCache<TKey, TValue, TData = TValue> {
   }
 
   public has(key: TKey): boolean {
-    return this.cache.has(this.getKey(key));
+    return this.cache.has(this.getKeyString(key));
   }
 
   public prepare(keyFrom: TKey, keyTo: TKey): void {
@@ -75,7 +92,7 @@ export abstract class DataCache<TKey, TValue, TData = TValue> {
 
   protected getFromCache(key: TKey): Observable<TValue> {
     if (this.has(key)) {
-      const value = this.cache.get(this.getKey(key));
+      const value = this.cache.get(this.getKeyString(key));
       if (value === undefined) {
         throw Error('Shit just hit the fan');
       }
@@ -100,7 +117,7 @@ export abstract class DataCache<TKey, TValue, TData = TValue> {
   protected abstract getData(key: TKey): Observable<TData>;
   protected abstract getDataArray(keys: TKey[]): Observable<void>;
 
-  private getKey(key: TKey): string {
+  private getKeyString(key: TKey): string {
     return this.keyProvider.getKey(key);
   }
 }

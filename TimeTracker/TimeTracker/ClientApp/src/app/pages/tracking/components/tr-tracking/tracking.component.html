@@ -1,7 +1,9 @@
 <div class="tracking-content">
-  <tr-tracking-settings (settingsChanged)="setSettings($event)"></tr-tracking-settings>
+  <div class="tracking-settings">
+    <tr-tracking-settings (settingsChanged)="setSettings($event)"></tr-tracking-settings>
+  </div>
 
-  <tr-card>
+  <tr-card class="spread">
     <tr-tracking-content [settings]="currentSettings"></tr-tracking-content>
   </tr-card>
 </div>

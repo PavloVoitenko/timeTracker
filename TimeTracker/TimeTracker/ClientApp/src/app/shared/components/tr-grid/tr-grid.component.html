@@ -14,7 +14,7 @@
 
       <ng-template #readonlyRow>
         <ng-container *ngFor="let column of dataSource.data.headers">
-          <td>{{ row[column.key] }}</td>
+          <td class="grid-field">{{ row[column.key] }}</td>
         </ng-container>
       </ng-template>
     </tr>

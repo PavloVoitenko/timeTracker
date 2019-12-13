@@ -23,7 +23,7 @@ const routes: Route[] = [
  * Tracking screen module
  */
 @NgModule({
-  declarations: [TrackingComponent, TrackingCardComponent, TrackingContentComponent],
+  declarations: [TrackingComponent, TrackingContentComponent, TrackingCardComponent],
   imports: [RouterModule.forChild(routes), SharedModule, TrackingSettingsModule],
   providers: [
     {

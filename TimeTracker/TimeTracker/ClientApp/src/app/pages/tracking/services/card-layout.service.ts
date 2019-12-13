@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CardLayout, CardLayoutRow } from '../util/layout';
 import { CardOptions, PeriodOption } from '../util/tr-card-options';
 import { TrackingSettings } from '../util/tr-settings';
-import { MAX_CARDS_PER_ROW } from '../util/tr.constants';
+import { MAX_DAY_CARDS_PER_ROW, MAX_WEEK_MONTH_CARDS_PER_ROW } from '../util/tr.constants';
 
 /**
  * Card layout builder
@@ -14,12 +14,15 @@ import { MAX_CARDS_PER_ROW } from '../util/tr.constants';
 export class CardLayoutService {
   public createLayout(settings: TrackingSettings): CardLayout {
     const layoutRows: CardLayoutRow[] = [];
-    const momentKey = this.viewToMoment(settings.viewOptions.viewOption);
     let currentRow: CardLayoutRow = new CardLayoutRow();
+
+    const momentKey = this.viewToMoment(settings.viewOptions.viewOption);
+    const cardsPerRow = this.getMaxCardsPerRow(settings.viewOptions.viewOption);
+
     let currentMoment = settings.dateOptions.startDate.clone().startOf(momentKey);
 
     do {
-      if (currentRow.cardOptions.length >= MAX_CARDS_PER_ROW || currentRow.cardOptions.length === 0) {
+      if (currentRow.cardOptions.length >= cardsPerRow || currentRow.cardOptions.length === 0) {
         currentRow = new CardLayoutRow();
         layoutRows.push(currentRow);
       }
@@ -47,5 +50,14 @@ export class CardLayoutService {
     }
 
     return result;
+  }
+
+  private getMaxCardsPerRow(view: PeriodOption): number {
+    switch (view) {
+      case PeriodOption.Day:
+        return MAX_DAY_CARDS_PER_ROW;
+      default:
+        return MAX_WEEK_MONTH_CARDS_PER_ROW;
+    }
   }
 }
