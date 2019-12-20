@@ -37,7 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TimeTracker.Dto\TimeTracker.Dto.csproj" />
     <ProjectReference Include="..\TimeTracker.Model\TimeTracker.Model.csproj" />
+    <ProjectReference Include="..\TimeTracker.Services\TimeTracker.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracker.Model", "TimeTr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C68C88DA-C420-4A6E-A625-A07F3C55C628}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTraker.Tests", "TimeTraker.Tests\TimeTraker.Tests.csproj", "{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracker.DataImport", "TimeTracker.DataImport\TimeTracker.DataImport.csproj", "{0750A727-ABD0-43FB-B7AB-EA577ACA835D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker.DataImport", "TimeTracker.DataImport\TimeTracker.DataImport.csproj", "{0750A727-ABD0-43FB-B7AB-EA577ACA835D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericRepository", "GenericRepository\GenericRepository\GenericRepository.csproj", "{ECEC807F-E89B-4FD3-B331-7DE3D21E4677}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracker.Services", "TimeTracker.Services\TimeTracker.Services.csproj", "{7D4000D8-5CB8-4B20-8B23-78566A8233CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker.Dto", "TimeTracker.Dto\TimeTracker.Dto.csproj", "{4FFBEBD3-84D2-44EE-8616-73B766283E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,14 +31,22 @@ Global
 		{541E00A4-565C-4B7B-944C-213D73086190}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{541E00A4-565C-4B7B-944C-213D73086190}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{541E00A4-565C-4B7B-944C-213D73086190}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAD4485B-CC9F-4E30-A0B1-0ADAA9284CC9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0750A727-ABD0-43FB-B7AB-EA577ACA835D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0750A727-ABD0-43FB-B7AB-EA577ACA835D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0750A727-ABD0-43FB-B7AB-EA577ACA835D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0750A727-ABD0-43FB-B7AB-EA577ACA835D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECEC807F-E89B-4FD3-B331-7DE3D21E4677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECEC807F-E89B-4FD3-B331-7DE3D21E4677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECEC807F-E89B-4FD3-B331-7DE3D21E4677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECEC807F-E89B-4FD3-B331-7DE3D21E4677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D4000D8-5CB8-4B20-8B23-78566A8233CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4000D8-5CB8-4B20-8B23-78566A8233CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4000D8-5CB8-4B20-8B23-78566A8233CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4000D8-5CB8-4B20-8B23-78566A8233CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FFBEBD3-84D2-44EE-8616-73B766283E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FFBEBD3-84D2-44EE-8616-73B766283E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FFBEBD3-84D2-44EE-8616-73B766283E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FFBEBD3-84D2-44EE-8616-73B766283E87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

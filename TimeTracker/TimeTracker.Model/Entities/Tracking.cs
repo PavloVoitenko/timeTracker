@@ -1,13 +1,9 @@
-﻿using System;
-using TimeTracker.Model.Entities.Abstractions;
+﻿using GenericRepository.Abstractions.Entities;
 
 namespace TimeTracker.Model.Entities
 {
-    public class Tracking : EntityBase
+    public class Tracking : DateTimeStateEntityBase
     {
-        public DateTime TrackingDate { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
         public int TaskId { get; set; }
         public int UserId { get; set; }
 

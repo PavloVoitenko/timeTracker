@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using TimeTracker.Model.Entities.Abstractions;
+﻿using GenericRepository.Abstractions.Entities;
+
+using System.Collections.Generic;
 
 namespace TimeTracker.Model.Entities
 {
-    public class User : EntityBase
+    public class User : NamedEntityBase
     {
-        public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
 

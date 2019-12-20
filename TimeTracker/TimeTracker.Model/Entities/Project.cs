@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using TimeTracker.Model.Entities.Abstractions;
+﻿using GenericRepository.Abstractions.Entities;
+
+using System.Collections.Generic;
 
 namespace TimeTracker.Model.Entities
 {
-    public class Project : NamedEntity
+    public class Project : NamedEntityBase
     {
         public virtual IEnumerable<Task> Tasks { get; set; }
     }

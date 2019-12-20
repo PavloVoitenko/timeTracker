@@ -1,0 +1,3 @@
+[submodule "TimeTracker/GenericRepository"]
+	path = TimeTracker/GenericRepository
+	url = https://github.com/PavloVoitenko/GenericRepository.git

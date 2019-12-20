@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+
 using TimeTracker.DataImport.Models;
 using TimeTracker.Model;
 using TimeTracker.Model.Entities;
@@ -20,7 +19,7 @@ namespace TimeTracker.DataImport
         public DataCreator(string userName, string projectName)
         {
             _projectName = projectName;
-            _user = _db.User.FirstOrDefault(u => u.Username == userName);
+            _user = _db.User.FirstOrDefault(u => u.Name == userName);
 
             if (_user == null)
             {
@@ -87,12 +86,12 @@ namespace TimeTracker.DataImport
                 var previousTracking = _db.Tracking
                     .Include(t => t.Task)
                     .Include(t => t.User)
-                    .Where(t => t.User.Username == _user.Username && t.TrackingDate == date)
-                    .OrderByDescending(t => t.EndTime).FirstOrDefault();
+                    .Where(t => t.User.Name == _user.Name && t.AsOfDate == date)
+                    .OrderByDescending(t => t.RangeTo).FirstOrDefault();
 
                 if (previousTracking != null)
                 {
-                    startTime = previousTracking.EndTime;
+                    startTime = previousTracking.RangeTo;
                 }
 
                 endTime = startTime.Add(duration);
@@ -102,9 +101,9 @@ namespace TimeTracker.DataImport
             {
                 User = _user,
                 Task = task,
-                TrackingDate = date,
-                StartTime = startTime,
-                EndTime = endTime
+                AsOfDate = date,
+                RangeFrom = startTime,
+                RangeTo = endTime
             };
 
             _db.Add(tracking);
