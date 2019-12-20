@@ -12,7 +12,7 @@ namespace TimeTracker.Services.Util
         {
             var saltArray = new byte[16];
 
-            if (salt == string.Empty)
+            if (string.IsNullOrEmpty(salt))
             {
                 using (var random = RandomNumberGenerator.Create())
                 {

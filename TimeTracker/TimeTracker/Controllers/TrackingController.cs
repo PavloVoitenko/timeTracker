@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TimeTracker.DTOs;
-using TimeTracker.Exceptions;
-using TimeTracker.Extensons;
-using TimeTracker.Model;
-
+using TimeTracker.Services.Trackings;
 
 namespace TimeTracker.Controllers
 {
@@ -18,10 +13,10 @@ namespace TimeTracker.Controllers
     [Authorize]
     public class TrackingController : Controller
     {
-        private readonly TimeTrackingContext _context;
-        public TrackingController(TimeTrackingContext context)
+        private readonly ITrackingService _service;
+        public TrackingController(ITrackingService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/<controller>
@@ -33,89 +28,23 @@ namespace TimeTracker.Controllers
                 return new List<TrackingDto>();
             }
 
-            var username = User.FindFirstValue(ClaimTypes.Name);
-            var trackings = from tracking in _context.Tracking
-                                where tracking.TrackingDate <= periodEnd && tracking.TrackingDate >= periodStart
-                            join user in _context.User
-                                on tracking.UserId equals user.Id
-                                where user.Username == username
-                            join task in _context.Task
-                                on tracking.TaskId equals task.Id
-                            join project in _context.Project
-                                on task.ProjectId equals project.Id
-                            select new TrackingDto
-                            {
-                                TrackingId = tracking.Id,
-                                ProjectName = project.Name,
-                                TaskName = task.Name,
-                                TaskDescription = task.Description,
-                                TaskType = task.Type,
-                                TrackingDate = tracking.TrackingDate,
-                                StartTime = tracking.StartTime.ToTime(),
-                                EndTime = tracking.EndTime.ToTime()
-                            };
+            var username = User.FindFirstValue(ClaimTypes.Name);            
 
-            return trackings.ToList();
+            return _service.GetTrackings(username, periodStart, periodEnd);
         }
 
         // POST api/<controller>
         [HttpPost]
         public async Task Post([FromBody]TrackingDto trackingDto)
         {
-            var user = _context.User.FirstOrDefault(u => u.Username == User.FindFirst(ClaimTypes.Name).Value);
-
-            var project = _context.Project.FirstOrDefault(p => p.Name == trackingDto.ProjectName);
-            if (project == null)
-            {
-                project = new Model.Entities.Project
-                {
-                    Name = trackingDto.ProjectName
-                };
-                _context.Add(project);
-            }
-
-            var task = _context.Task.FirstOrDefault(t => t.Name == trackingDto.TaskName);
-            if (task == null)
-            {
-                task = new Model.Entities.Task
-                {
-                    Name = trackingDto.TaskName,
-                    Project = project,
-                    Description = trackingDto.TaskDescription,
-                    Type = trackingDto.TaskType
-                };
-                _context.Add(task);
-            }
-
-            var tracking = new Model.Entities.Tracking
-            {
-                Task = task,
-                TrackingDate = trackingDto.TrackingDate,
-                StartTime = trackingDto.StartTime.ToSpan(),
-                EndTime = trackingDto.EndTime.ToSpan(),
-                User = user
-            };
-            _context.Add(tracking);
-            await _context.SaveChangesAsync();
+            await _service.CreateTracking(User.FindFirst(ClaimTypes.Name).Value, trackingDto);
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            var tracking = _context.Tracking.Include(t => t.User).FirstOrDefault(t => t.Id == id);
-            if (tracking == null)
-            {
-                throw new FunctionalException("Tracking does not exist");
-            }
-
-            if (tracking.User.Username != User.FindFirst(ClaimTypes.Name).Value)
-            {
-                throw new FunctionalException("Tracking belongs to another user");
-            }
-
-            _context.Remove(tracking);
-            await _context.SaveChangesAsync();
+            await _service.DeleteTracking(User.FindFirst(ClaimTypes.Name).Value, id);
         }
     }
 }
