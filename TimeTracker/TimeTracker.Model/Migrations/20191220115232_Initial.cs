@@ -26,7 +26,7 @@ namespace TimeTracker.Model.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
                     PasswordSalt = table.Column<string>(nullable: true)
                 },
@@ -63,9 +63,9 @@ namespace TimeTracker.Model.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TrackingDate = table.Column<DateTime>(nullable: false),
-                    StartTime = table.Column<TimeSpan>(nullable: false),
-                    EndTime = table.Column<TimeSpan>(nullable: false),
+                    RangeFrom = table.Column<TimeSpan>(nullable: false),
+                    RangeTo = table.Column<TimeSpan>(nullable: false),
+                    AsOfDate = table.Column<DateTime>(nullable: false),
                     TaskId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
@@ -112,9 +112,9 @@ namespace TimeTracker.Model.Migrations
                 columns: new[] { "TaskId", "UserId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_Username",
+                name: "IX_User_Name",
                 table: "User",
-                column: "Username");
+                column: "Name");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

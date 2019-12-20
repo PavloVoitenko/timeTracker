@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20191002113003_Initial.cs" />
-    <Compile Remove="Migrations\20191002113003_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20191002113241_Initial.cs" />
-    <Compile Remove="Migrations\20191002113241_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20191216155743_Initial.cs" />
+    <Compile Remove="Migrations\20191216155743_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20191216160217_Initial.cs" />
+    <Compile Remove="Migrations\20191216160217_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +18,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GenericRepository\GenericRepository\GenericRepository.csproj" />
   </ItemGroup>
 
 </Project>
