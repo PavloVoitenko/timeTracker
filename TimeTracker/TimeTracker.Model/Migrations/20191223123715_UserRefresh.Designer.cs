@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTracker.Model;
 
 namespace TimeTracker.Model.Migrations
 {
     [DbContext(typeof(TimeTrackingContext))]
-    partial class TimeTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20191223123715_UserRefresh")]
+    partial class UserRefresh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

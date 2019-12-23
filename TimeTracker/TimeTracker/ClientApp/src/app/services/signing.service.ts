@@ -9,6 +9,7 @@ import { Path } from '../shared/util/routing/path';
 import { LandingRoute } from '../shared/util/routing/routing-paths';
 
 import { UserService } from './data/user/user.service';
+import { tokenName } from '@angular/compiler';
 
 /**
  * Service that handles signing in/up
@@ -43,6 +44,21 @@ export class SigningService {
     this.emitNavigate(l => l.Unauthorized);
   }
 
+  public refresh(): void {
+    const token: Token = {
+      authToken: this.getKey(false),
+      refreshToken: this.getKey(true),
+    };
+
+    if (token.authToken === '' || token.refreshToken === '') {
+      return;
+    }
+
+    this.service.refresh(token).subscribe((newToken: Token) => {
+      this.setKey(newToken);
+    });
+  }
+
   public subscribe(action: (next: boolean) => void): Subscription {
     return this.signingSubject.subscribe(action);
   }
@@ -51,20 +67,25 @@ export class SigningService {
     return this.getKey() !== '';
   }
 
-  public getKey(): string {
-    const key = localStorage.getItem(StorageItem.AuthKey);
+  public getKey(isRefresh: boolean = false): string {
+    const key = localStorage.getItem(isRefresh ? StorageItem.RefreshKey : StorageItem.AuthKey);
 
     return key === null ? '' : key;
   }
 
   private setKey(token: Token): void {
-    if (token.token !== '') {
-      localStorage.setItem(StorageItem.AuthKey, token.token);
+    if (token.authToken !== '') {
+      localStorage.setItem(StorageItem.AuthKey, token.authToken);
+    }
+
+    if (token.refreshToken !== '') {
+      localStorage.setItem(StorageItem.RefreshKey, token.refreshToken);
     }
   }
 
   private removeKey(): void {
     localStorage.removeItem(StorageItem.AuthKey);
+    localStorage.removeItem(StorageItem.RefreshKey);
   }
 
   private emitNavigate(getLandingPage: (landing: LandingRoute) => Path = (l): Path => l.Default): void {

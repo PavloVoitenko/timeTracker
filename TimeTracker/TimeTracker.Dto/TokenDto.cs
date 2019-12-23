@@ -3,6 +3,7 @@ namespace TimeTracker.DTOs
 {
     public class TokenDto
     {
-        public string Token { get; set; }
+        public string AuthToken { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

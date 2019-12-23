@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using TimeTracker.DTOs;
-using TimeTracker.Model;
 using TimeTracker.Services.Users;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TimeTracker.Controllers
 {
@@ -14,12 +12,10 @@ namespace TimeTracker.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private readonly TimeTrackingContext _context;
         private readonly IUserService _service;
 
-        public UserController(TimeTrackingContext context, IUserService userService)
+        public UserController(IUserService userService)
         {
-            _context = context;
             _service = userService;
         }
 
@@ -28,20 +24,22 @@ namespace TimeTracker.Controllers
         [AllowAnonymous]
         public async Task<TokenDto> Post([FromBody]UserDto userDto)
         {
-            return new TokenDto
-            {
-                Token = await _service.CreateAsync(userDto)
-            };
+            return await _service.CreateAsync(userDto);
         }
 
         [HttpPost("[action]", Name = "auth")]
         [AllowAnonymous]
-        public TokenDto Auth([FromBody]UserDto userDto)
+        public async Task<TokenDto> Auth([FromBody]UserDto userDto)
         {
-            return new TokenDto
-            {
-                Token = _service.Authenticate(userDto)
-            };
+            return await _service.AuthenticateAsync(userDto);
+        }
+
+        [HttpPost("[action]", Name = "refresh")]
+        [AllowAnonymous]
+        public async Task<TokenDto> Refresh([FromBody]TokenDto tokenDto)
+        {
+            var username = User.FindFirstValue(ClaimTypes.Name);
+            return await _service.RefreshAsync(username, tokenDto.RefreshToken);
         }
     }
 }

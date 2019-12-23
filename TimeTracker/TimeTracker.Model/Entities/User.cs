@@ -9,6 +9,7 @@ namespace TimeTracker.Model.Entities
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
 
-        public IEnumerable<Tracking> Trackings { get; set; }
+        public virtual IEnumerable<Tracking> Trackings { get; set; }
+        public virtual IEnumerable<UserRefresh> RefreshTokens { get; set; }
     }
 }

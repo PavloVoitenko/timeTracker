@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using TimeTracker.DTOs;
 using TimeTracker.Services.Trackings;
 
@@ -28,7 +29,7 @@ namespace TimeTracker.Controllers
                 return new List<TrackingDto>();
             }
 
-            var username = User.FindFirstValue(ClaimTypes.Name);            
+            var username = User.FindFirstValue(ClaimTypes.Name);
 
             return _service.GetTrackings(username, periodStart, periodEnd);
         }

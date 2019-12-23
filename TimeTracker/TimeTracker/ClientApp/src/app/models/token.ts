@@ -2,5 +2,6 @@
  * Token model
  */
 export class Token {
-  public token: string;
+  public authToken: string;
+  public refreshToken: string;
 }

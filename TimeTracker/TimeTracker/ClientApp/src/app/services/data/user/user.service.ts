@@ -21,8 +21,14 @@ export class UserService extends DataBaseService {
   }
 
   public auth(user: User): Observable<Token> {
-    const authPostfix = 'auth/';
+    const authSuffix = 'auth/';
 
-    return this.http.post<Token>(this.getAddress() + authPostfix, user, { headers: this.appJson });
+    return this.http.post<Token>(this.getAddress() + authSuffix, user, { headers: this.appJson });
+  }
+
+  public refresh(token: Token): Observable<Token> {
+    const refreshSuffix = 'refresh/';
+
+    return this.http.post<Token>(this.getAddress() + refreshSuffix, token, { headers: this.appJson });
   }
 }

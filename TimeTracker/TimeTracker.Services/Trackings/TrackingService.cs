@@ -32,24 +32,24 @@ namespace TimeTracker.Services.Trackings
             var trackings = repo.AsOfRange(from, to);
 
             return from tracking in trackings
-                    join user in Unit.All<Entity.User>()
-                        on tracking.UserId equals user.Id
-                    where user.Name == username
-                    join task in Unit.All<Entity.Task>()
-                        on tracking.TaskId equals task.Id
-                    join project in Unit.All<Entity.Project>()
-                        on task.ProjectId equals project.Id
-                    select new TrackingDto
-                    {
-                        TrackingId = tracking.Id,
-                        ProjectName = project.Name,
-                        TaskName = task.Name,
-                        TaskDescription = task.Description,
-                        TaskType = task.Type,
-                        TrackingDate = tracking.AsOfDate,
-                        StartTime = tracking.RangeFrom.ToTime(),
-                        EndTime = tracking.RangeFrom.ToTime()
-                    };
+                   join user in Unit.All<Entity.User>()
+                       on tracking.UserId equals user.Id
+                   where user.Name == username
+                   join task in Unit.All<Entity.Task>()
+                       on tracking.TaskId equals task.Id
+                   join project in Unit.All<Entity.Project>()
+                       on task.ProjectId equals project.Id
+                   select new TrackingDto
+                   {
+                       TrackingId = tracking.Id,
+                       ProjectName = project.Name,
+                       TaskName = task.Name,
+                       TaskDescription = task.Description,
+                       TaskType = task.Type,
+                       TrackingDate = tracking.AsOfDate,
+                       StartTime = tracking.RangeFrom.ToTime(),
+                       EndTime = tracking.RangeTo.ToTime()
+                   };
         }
         public async Task CreateTracking(string username, TrackingDto trackingDto)
         {
@@ -77,8 +77,8 @@ namespace TimeTracker.Services.Trackings
         public async Task DeleteTracking(string username, int trackingId)
         {
             var tracking = Unit.All<Entity.Tracking>().Include(t => t.User).FirstOrDefault(t => t.Id == trackingId);
-            CheckError(tracking != null, "Tracking does not exist");
-            CheckError(tracking.User.Name == username, "Tracking belongs to another user"); ;
+            CheckError(tracking != null, Messages.DoesNotExist(MessageEntity.Tracking));
+            CheckError(tracking.User.Name == username, Messages.BelongsToAnother(MessageEntity.Tracking, MessageEntity.User));
 
             var repo = Unit.Repo<Entity.Tracking>();
             repo.Delete(tracking);

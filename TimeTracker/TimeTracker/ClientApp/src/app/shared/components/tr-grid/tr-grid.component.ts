@@ -19,6 +19,6 @@ export class GridComponent {
   @Input() public dataSource: Datasource<object>;
 
   public isRowEditable(row: ILooseObject): boolean {
-    return false; // this.editableRow.isSameRow(row);
+    return false;
   }
 }

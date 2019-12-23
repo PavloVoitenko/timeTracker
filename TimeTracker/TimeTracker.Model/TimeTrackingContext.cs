@@ -22,6 +22,7 @@ namespace TimeTracker.Model
 
             modelBuilder.Entity<Project>().HasMany(p => p.Tasks).WithOne(t => t.Project);
             modelBuilder.Entity<User>().HasMany(u => u.Trackings).WithOne(t => t.User);
+            modelBuilder.Entity<User>().HasMany(u => u.RefreshTokens).WithOne(ur => ur.User);
 
             IndexHelper.BuildIndexes<TimeTrackingContext>(modelBuilder);
         }
@@ -30,5 +31,6 @@ namespace TimeTracker.Model
         public DbSet<Task> Task { get; set; }
         public DbSet<Tracking> Tracking { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<UserRefresh> UserRefresh { get; set; }
     }
 }
